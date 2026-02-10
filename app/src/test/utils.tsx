@@ -8,6 +8,7 @@ const mockSession: Session = {
     name: "Test User",
     email: "test@example.com",
     image: "https://example.com/avatar.png",
+    role: "ADMIN",
   },
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 };
