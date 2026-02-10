@@ -1,0 +1,183 @@
+{
+  "_meta": {
+    "models": {
+      "rates": "Reglas de tarifas que definen cómo se calculan los pagos. Cada tarifa representa una fase/rol con valores para diferentes franjas de minutos (menos de 30, 30.1-59.9, 60-89.9, 90-119.9, más de 120), valores con y sin bono, tipo de cálculo (por minuto, flat, por hora), y soporte multi-moneda (ARS, USD, BRL)."
+    },
+    "relationships": [
+      "Cada Rate puede aplicarse a múltiples Assignments según la fase, duración del episodio, y otros factores",
+      "Las tarifas se utilizan durante la liquidación (Settlement) para calcular los pagos a vendors",
+      "Las tarifas pueden tener excepciones por show específico que sobrescriben las tarifas estándar"
+    ]
+  },
+  "rates": [
+    {
+      "id": "rate-001",
+      "phase": "Preflight",
+      "currency": "ARS",
+      "calculationType": "x minuto",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 400,
+          "withBonus": 460
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 400,
+          "withBonus": 460
+        },
+        "60_to_89_9": {
+          "withoutBonus": 400,
+          "withBonus": 460
+        },
+        "90_to_119_9": {
+          "withoutBonus": 400,
+          "withBonus": 460
+        },
+        "moreThan120": {
+          "withoutBonus": 400,
+          "withBonus": 460
+        }
+      }
+    },
+    {
+      "id": "rate-002",
+      "phase": "Adaptador",
+      "currency": "ARS",
+      "calculationType": "x minuto",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 800,
+          "withBonus": 1000
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 800,
+          "withBonus": 1000
+        },
+        "60_to_89_9": {
+          "withoutBonus": 800,
+          "withBonus": 1000
+        },
+        "90_to_119_9": {
+          "withoutBonus": 800,
+          "withBonus": 1000
+        },
+        "moreThan120": {
+          "withoutBonus": 800,
+          "withBonus": 1000
+        }
+      }
+    },
+    {
+      "id": "rate-003",
+      "phase": "Editor",
+      "currency": "ARS",
+      "calculationType": "flat",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 10000,
+          "withBonus": 10000
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 16000,
+          "withBonus": 16000
+        },
+        "60_to_89_9": {
+          "withoutBonus": 18000,
+          "withBonus": 18000
+        },
+        "90_to_119_9": {
+          "withoutBonus": 20000,
+          "withBonus": 20000
+        },
+        "moreThan120": {
+          "withoutBonus": 24000,
+          "withBonus": 24000
+        }
+      }
+    },
+    {
+      "id": "rate-004",
+      "phase": "Editor de sonido",
+      "currency": "USD",
+      "calculationType": "x minuto",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 25,
+          "withBonus": 17
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 0.45,
+          "withBonus": 0.3
+        },
+        "60_to_89_9": {
+          "withoutBonus": 0.45,
+          "withBonus": 0.3
+        },
+        "90_to_119_9": {
+          "withoutBonus": 0.45,
+          "withBonus": 0.3
+        },
+        "moreThan120": {
+          "withoutBonus": 0.45,
+          "withBonus": 0.3
+        }
+      }
+    },
+    {
+      "id": "rate-005",
+      "phase": "Adaptador PTBR",
+      "currency": "USD",
+      "calculationType": "x minuto",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 0.6,
+          "withBonus": 0.75
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 0.6,
+          "withBonus": 0.75
+        },
+        "60_to_89_9": {
+          "withoutBonus": 0.6,
+          "withBonus": 0.75
+        },
+        "90_to_119_9": {
+          "withoutBonus": 0.6,
+          "withBonus": 0.75
+        },
+        "moreThan120": {
+          "withoutBonus": 0.6,
+          "withBonus": 0.75
+        }
+      }
+    },
+    {
+      "id": "rate-006",
+      "phase": "Editores PTBR",
+      "currency": "BRL",
+      "calculationType": "flat",
+      "minuteRanges": {
+        "lessThan30": {
+          "withoutBonus": 75,
+          "withBonus": 75
+        },
+        "30_1_to_59_9": {
+          "withoutBonus": 75,
+          "withBonus": 75
+        },
+        "60_to_89_9": {
+          "withoutBonus": 200,
+          "withBonus": 200
+        },
+        "90_to_119_9": {
+          "withoutBonus": 200,
+          "withBonus": 200
+        },
+        "moreThan120": {
+          "withoutBonus": 200,
+          "withBonus": 200
+        }
+      }
+    }
+  ]
+}
+

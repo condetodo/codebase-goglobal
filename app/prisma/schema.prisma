@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// =============================================================================
+// NextAuth.js Models
+// =============================================================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// =============================================================================
+// Application Models
+// =============================================================================
+
+model Show {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @default("")
+  episodes    Episode[]
+  orders      Order[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Order {
+  id                     String                  @id @default(cuid())
+  orderNumber            String                  @unique
+  productType            String
+  showId                 String
+  language               String                  @default("Spanish LA")
+  status                 String                  @default("pendiente")
+  episodeCount           Int
+  createdBy              String
+  show                   Show                    @relation(fields: [showId], references: [id])
+  episodes               Episode[]
+  vendorAssignments      OrderVendorAssignment[]
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+}
+
+model Episode {
+  id              String       @id @default(cuid())
+  orderId         String
+  episodeNumber   Int
+  title           String
+  duration        Float        @default(0)
+  status          String       @default("pendiente")
+  showId          String
+  order           Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  show            Show         @relation(fields: [showId], references: [id])
+  assignments     Assignment[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model Vendor {
+  id              String       @id @default(cuid())
+  voiceTalent     String
+  vtNewCode       String       @default("")
+  email           String       @unique
+  language        String       @default("Spanish LA")
+  active          Boolean      @default(true)
+  gender          String?
+  vendorType      String       @default("Voice Talent")
+  character       String?
+  vocalRange      String?
+  category        String?
+  voiceSample     String?
+  mic             String?
+  software        String?
+  homeStudio      String?
+  currency        String?
+  rate            Float?
+  bonus           Boolean?
+  qualityBonus    Float?
+  continuityBonus Float?
+  notes           String?
+  photo           String?
+  assignments     Assignment[]
+  orderVendorAssignmentItems OrderVendorAssignmentItem[]
+  purchaseOrders  PurchaseOrder[]
+  payments        Payment[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model Assignment {
+  id            String   @id @default(cuid())
+  episodeId     String
+  vendorId      String
+  phase         String
+  minutesWorked Float    @default(0)
+  deadline      DateTime?
+  isOverride    Boolean  @default(false)
+  status        String   @default("pendiente")
+  episode       Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  vendor        Vendor   @relation(fields: [vendorId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model OrderVendorAssignment {
+  id       String                      @id @default(cuid())
+  orderId  String
+  phase    String
+  deadline DateTime
+  order    Order                       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  vendors  OrderVendorAssignmentItem[]
+  createdAt DateTime                   @default(now())
+  updatedAt DateTime                   @updatedAt
+}
+
+model OrderVendorAssignmentItem {
+  id                      String                @id @default(cuid())
+  orderVendorAssignmentId String
+  vendorId                String
+  estimatedMinutes        Float                 @default(0)
+  orderVendorAssignment   OrderVendorAssignment @relation(fields: [orderVendorAssignmentId], references: [id], onDelete: Cascade)
+  vendor                  Vendor                @relation(fields: [vendorId], references: [id])
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+}
+
+model Rate {
+  id              String   @id @default(cuid())
+  phase           String
+  currency        String
+  calculationType String   @default("x minuto")
+  minuteRanges    Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PurchaseOrder {
+  id           String      @id @default(cuid())
+  poNumber     String      @unique
+  vendorId     String
+  paymentMonth String
+  currency     String
+  subtotal     Float       @default(0)
+  bonuses      Float       @default(0)
+  total        Float       @default(0)
+  status       String      @default("draft")
+  approvedBy   String?
+  approvedAt   DateTime?
+  sentToErpAt  DateTime?
+  paidAt       DateTime?
+  pdfUrl       String?
+  erpReference String?
+  notes        String?
+  vendor       Vendor      @relation(fields: [vendorId], references: [id])
+  lineItems    POLineItem[]
+  payments     Payment[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model POLineItem {
+  id              String        @id @default(cuid())
+  poId            String
+  assignmentId    String?
+  description     String
+  orderNumber     String
+  showTitle       String
+  episode         String
+  phase           String
+  quantity        Float         @default(0)
+  unit            String        @default("minutes")
+  unitPrice       Float         @default(0)
+  amount          Float         @default(0)
+  lineOrder       Int           @default(0)
+  purchaseOrder   PurchaseOrder @relation(fields: [poId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Payment {
+  id              String        @id @default(cuid())
+  poId            String
+  vendorId        String
+  amount          Float
+  currency        String
+  paymentDate     DateTime
+  paymentMethod   String        @default("bank_transfer")
+  referenceNumber String        @default("")
+  paymentHash     String        @default("")
+  purchaseOrder   PurchaseOrder @relation(fields: [poId], references: [id])
+  vendor          Vendor        @relation(fields: [vendorId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}

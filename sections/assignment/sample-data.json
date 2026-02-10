@@ -1,0 +1,229 @@
+{
+  "_meta": {
+    "models": {
+      "vendors": "Un vendor es un proveedor que realiza trabajo de doblaje. Los vendors pueden ser asignados a las 5 etapas del proceso (adaptación, voice recording, sound editing, subtítulos, QA) y tienen información de contacto y configuración de pagos. Se muestran en el formulario de creación de Order para que el usuario pueda seleccionarlos o crear nuevos.",
+      "shows": "Un show es una serie o programa de televisión que agrupa episodios. Los shows se seleccionan o crean durante el proceso de creación de una nueva Order. Los shows pueden tener tarifas excepcionales configuradas."
+    },
+    "relationships": [
+      "El formulario de creación de Order permite seleccionar un Show existente o crear uno nuevo",
+      "El formulario permite seleccionar Vendors existentes o crear nuevos vendors durante el proceso",
+      "Cada Order creada tendrá asignaciones de vendors a nivel de Order para las 5 etapas del proceso",
+      "Las asignaciones de vendors a nivel de Order se aplican automáticamente a todos los episodios que se generen"
+    ],
+    "description": "Esta sección es el formulario de creación de Order/Show. Permite crear nuevas Orders asignando vendors, deadlines y minutos estimados para cada una de las 5 etapas del proceso de doblaje. Los datos aquí son los vendors y shows disponibles para usar en el formulario."
+  },
+  "shows": [
+    {
+      "id": "show-001",
+      "name": "Dark Secrets",
+      "description": "Serie de suspenso psicológico con 6 episodios"
+    },
+    {
+      "id": "show-002",
+      "name": "City Lights",
+      "description": "Drama urbano sobre la vida en la ciudad"
+    },
+    {
+      "id": "show-003",
+      "name": "The Last Journey",
+      "description": "Aventura épica de ciencia ficción"
+    },
+    {
+      "id": "show-004",
+      "name": "Ocean Depths",
+      "description": "Documental sobre la vida marina"
+    },
+    {
+      "id": "show-005",
+      "name": "Mountain Peak",
+      "description": "Serie documental sobre montañismo y aventura"
+    },
+    {
+      "id": "show-006",
+      "name": "Urban Stories",
+      "description": "Drama contemporáneo sobre la vida urbana"
+    }
+  ],
+  "vendors": [
+    {
+      "id": "ven-001",
+      "name": "Estudio Alpha",
+      "email": "contacto@estudioalpha.com",
+      "phone": "+54 11 4321-5678",
+      "specializations": ["adaptación"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-002",
+      "name": "Voice Studio Beta",
+      "email": "info@voicestudiobeta.com",
+      "phone": "+54 11 4567-8901",
+      "specializations": ["adaptación", "voice recording"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-003",
+      "name": "Sound Masters",
+      "email": "hello@soundmasters.com",
+      "phone": "+52 55 1234-5678",
+      "specializations": ["sound editing", "QA"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-004",
+      "name": "Adaptation Pro",
+      "email": "contact@adaptationpro.com",
+      "phone": "+54 11 9876-5432",
+      "specializations": ["adaptación", "subtítulos"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-005",
+      "name": "Voice Experts",
+      "email": "studio@voiceexperts.com",
+      "phone": "+52 55 9876-5432",
+      "specializations": ["voice recording", "sound editing"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-006",
+      "name": "Audio Studio",
+      "email": "info@audiostudio.com",
+      "phone": "+54 11 2345-6789",
+      "specializations": ["sound editing", "QA"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-007",
+      "name": "QA Specialists",
+      "email": "qa@qaspecialists.com",
+      "phone": "+52 55 2345-6789",
+      "specializations": ["QA"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-008",
+      "name": "Adaptation Solutions",
+      "email": "contact@adaptationsolutions.com",
+      "phone": "+54 11 3456-7890",
+      "specializations": ["adaptación"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-009",
+      "name": "Edit Masters",
+      "email": "hello@editmasters.com",
+      "phone": "+52 55 3456-7890",
+      "specializations": ["subtítulos", "sound editing"],
+      "currency": "USD",
+      "active": false
+    },
+    {
+      "id": "ven-010",
+      "name": "Full Service Studio",
+      "email": "info@fullservicestudio.com",
+      "phone": "+54 11 5678-9012",
+      "specializations": ["adaptación", "voice recording", "sound editing", "subtítulos", "QA"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-011",
+      "name": "Subtitles Pro",
+      "email": "info@subtitlespro.com",
+      "phone": "+54 11 6789-0123",
+      "specializations": ["subtítulos"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-012",
+      "name": "Adaptation Studio",
+      "email": "contact@adaptationstudio.com",
+      "phone": "+52 55 6789-0123",
+      "specializations": ["adaptación"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-013",
+      "name": "Voice Talent One",
+      "email": "talent1@voicetalents.com",
+      "phone": "+54 11 1111-2222",
+      "specializations": ["voice recording"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-014",
+      "name": "Voice Talent Two",
+      "email": "talent2@voicetalents.com",
+      "phone": "+54 11 2222-3333",
+      "specializations": ["voice recording"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-015",
+      "name": "Voice Talent Three",
+      "email": "talent3@voicetalents.com",
+      "phone": "+52 55 3333-4444",
+      "specializations": ["voice recording"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-016",
+      "name": "Voice Talent Four",
+      "email": "talent4@voicetalents.com",
+      "phone": "+54 11 4444-5555",
+      "specializations": ["voice recording"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-017",
+      "name": "Sound Design Pro",
+      "email": "info@sounddesignpro.com",
+      "phone": "+52 55 5555-6666",
+      "specializations": ["sound editing"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-018",
+      "name": "Quality Control Experts",
+      "email": "qc@qualitycontrol.com",
+      "phone": "+54 11 6666-7777",
+      "specializations": ["QA"],
+      "currency": "ARS",
+      "active": true
+    },
+    {
+      "id": "ven-019",
+      "name": "Subtitle Masters",
+      "email": "info@subtitlemasters.com",
+      "phone": "+52 55 7777-8888",
+      "specializations": ["subtítulos"],
+      "currency": "USD",
+      "active": true
+    },
+    {
+      "id": "ven-020",
+      "name": "Script Adaptation Studio",
+      "email": "contact@scriptadaptation.com",
+      "phone": "+54 11 8888-9999",
+      "specializations": ["adaptación"],
+      "currency": "ARS",
+      "active": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+/* Design Tokens for Go Global Dubbing Manager */
+
+:root {
+  /* Colors */
+  --color-primary: blue-900;
+  --color-secondary: red-700;
+  --color-neutral: stone;
+
+  /* Typography */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}

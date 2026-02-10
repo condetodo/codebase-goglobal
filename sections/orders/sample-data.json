@@ -1,0 +1,625 @@
+{
+  "_meta": {
+    "models": {
+      "orders": "Cada orden representa un proyecto completo de doblaje que entra al sistema. Puede contener múltiples episodios y está asociada a un show específico. Las asignaciones de vendors y deadlines se configuran a nivel de Order y se aplican automáticamente a todos los episodios.",
+      "episodes": "Cada episodio es una unidad individual de trabajo dentro de una orden. Tiene una duración en minutos y hereda automáticamente las asignaciones de vendors y deadlines de su Order. Puede tener excepciones específicas que sobrescriben las asignaciones a nivel de Order.",
+      "shows": "Un show es una serie o programa de televisión que agrupa episodios. Los shows pueden tener tarifas excepcionales configuradas que sobrescriben las tarifas estándar."
+    },
+    "relationships": [
+      "Cada Order contiene uno o más Episodes (los episodios que forman parte del proyecto de doblaje)",
+      "Cada Episode pertenece a una Order específica",
+      "Cada Episode y Order están asociados a un Show (la serie o programa de televisión)",
+      "Las asignaciones de vendors se configuran a nivel de Order y se aplican automáticamente a todos los episodios",
+      "Los Episodes pueden tener vendors asignados en las 5 fases del proceso: adaptación, voice recording, sound editing, subtítulos, QA"
+    ]
+  },
+  "orders": [
+    {
+      "id": "ord-001",
+      "orderNumber": "ORD-2024-001",
+      "productType": "miniserie",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "language": "es-AR",
+      "status": "en_proceso",
+      "episodeCount": 6,
+      "createdAt": "2024-01-15T10:30:00Z",
+      "createdBy": "María González"
+    },
+    {
+      "id": "ord-002",
+      "orderNumber": "ORD-2024-002",
+      "productType": "serie",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "language": "es-MX",
+      "status": "completada",
+      "episodeCount": 12,
+      "createdAt": "2024-01-10T14:20:00Z",
+      "createdBy": "Carlos Mendoza"
+    },
+    {
+      "id": "ord-003",
+      "orderNumber": "ORD-2024-003",
+      "productType": "pelicula",
+      "showId": "show-003",
+      "showName": "The Last Journey",
+      "language": "es-AR",
+      "status": "pendiente",
+      "episodeCount": 1,
+      "createdAt": "2024-01-20T09:15:00Z",
+      "createdBy": "Ana Rodríguez"
+    },
+    {
+      "id": "ord-004",
+      "orderNumber": "ORD-2024-004",
+      "productType": "documental",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "language": "es-AR",
+      "status": "en_proceso",
+      "episodeCount": 8,
+      "createdAt": "2024-01-18T16:45:00Z",
+      "createdBy": "María González"
+    },
+    {
+      "id": "ord-005",
+      "orderNumber": "ORD-2024-005",
+      "productType": "serie",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "language": "es-MX",
+      "status": "en_proceso",
+      "episodeCount": 10,
+      "createdAt": "2024-01-22T11:00:00Z",
+      "createdBy": "Carlos Mendoza"
+    },
+    {
+      "id": "ord-006",
+      "orderNumber": "ORD-2024-006",
+      "productType": "miniserie",
+      "showId": "show-005",
+      "showName": "Midnight Stories",
+      "language": "es-AR",
+      "status": "cancelada",
+      "episodeCount": 4,
+      "createdAt": "2024-01-12T13:30:00Z",
+      "createdBy": "Ana Rodríguez"
+    },
+    {
+      "id": "ord-007",
+      "orderNumber": "ORD-2024-007",
+      "productType": "serie",
+      "showId": "show-006",
+      "showName": "Ocean Depths",
+      "language": "es-AR",
+      "status": "pendiente",
+      "episodeCount": 0,
+      "createdAt": "2024-01-25T08:20:00Z",
+      "createdBy": "María González"
+    },
+    {
+      "id": "ord-008",
+      "orderNumber": "ORD-2024-008",
+      "productType": "pelicula",
+      "showId": "show-007",
+      "showName": "Desert Dreams",
+      "language": "es-MX",
+      "status": "en_proceso",
+      "episodeCount": 1,
+      "createdAt": "2024-01-19T15:10:00Z",
+      "createdBy": "Carlos Mendoza"
+    }
+  ],
+  "episodes": [
+    {
+      "id": "ep-001",
+      "orderId": "ord-001",
+      "episodeNumber": 1,
+      "title": "Dark Secrets - Episodio 1",
+      "duration": 45,
+      "status": "en_produccion",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-001",
+          "vendorName": "Estudio Alpha",
+          "phase": "preflight",
+          "minutesWorked": 45
+        },
+        {
+          "vendorId": "ven-002",
+          "vendorName": "Voice Studio Beta",
+          "phase": "adaptación",
+          "minutesWorked": 42
+        }
+      ]
+    },
+    {
+      "id": "ep-002",
+      "orderId": "ord-001",
+      "episodeNumber": 2,
+      "title": "Dark Secrets - Episodio 2",
+      "duration": 48,
+      "status": "en_produccion",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-001",
+          "vendorName": "Estudio Alpha",
+          "phase": "preflight",
+          "minutesWorked": 48
+        }
+      ]
+    },
+    {
+      "id": "ep-003",
+      "orderId": "ord-001",
+      "episodeNumber": 3,
+      "title": "Dark Secrets - Episodio 3",
+      "duration": 45,
+      "status": "pendiente",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-004",
+      "orderId": "ord-001",
+      "episodeNumber": 4,
+      "title": "Dark Secrets - Episodio 4",
+      "duration": 46,
+      "status": "pendiente",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-005",
+      "orderId": "ord-001",
+      "episodeNumber": 5,
+      "title": "Dark Secrets - Episodio 5",
+      "duration": 44,
+      "status": "pendiente",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-006",
+      "orderId": "ord-001",
+      "episodeNumber": 6,
+      "title": "Dark Secrets - Episodio 6",
+      "duration": 47,
+      "status": "pendiente",
+      "showId": "show-001",
+      "showName": "Dark Secrets",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-007",
+      "orderId": "ord-002",
+      "episodeNumber": 1,
+      "title": "City Lights - Episodio 1",
+      "duration": 22,
+      "status": "completado",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        },
+        {
+          "vendorId": "ven-004",
+          "vendorName": "Adaptation Pro",
+          "phase": "adaptación",
+          "minutesWorked": 20
+        },
+        {
+          "vendorId": "ven-005",
+          "vendorName": "Voice Experts",
+          "phase": "voice recording",
+          "minutesWorked": 25
+        },
+        {
+          "vendorId": "ven-006",
+          "vendorName": "Audio Studio",
+          "phase": "sound editing",
+          "minutesWorked": 22
+        },
+        {
+          "vendorId": "ven-007",
+          "vendorName": "QA Specialists",
+          "phase": "QA",
+          "minutesWorked": 22
+        }
+      ]
+    },
+    {
+      "id": "ep-008",
+      "orderId": "ord-002",
+      "episodeNumber": 2,
+      "title": "City Lights - Episodio 2",
+      "duration": 22,
+      "status": "completado",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        },
+        {
+          "vendorId": "ven-004",
+          "vendorName": "Adaptation Pro",
+          "phase": "adaptación",
+          "minutesWorked": 21
+        }
+      ]
+    },
+    {
+      "id": "ep-009",
+      "orderId": "ord-002",
+      "episodeNumber": 3,
+      "title": "City Lights - Episodio 3",
+      "duration": 22,
+      "status": "completado",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        }
+      ]
+    },
+    {
+      "id": "ep-010",
+      "orderId": "ord-002",
+      "episodeNumber": 4,
+      "title": "City Lights - Episodio 4",
+      "duration": 22,
+      "status": "en_produccion",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        },
+        {
+          "vendorId": "ven-004",
+          "vendorName": "Adaptation Pro",
+          "phase": "adaptación",
+          "minutesWorked": 20
+        },
+        {
+          "vendorId": "ven-005",
+          "vendorName": "Voice Experts",
+          "phase": "voice recording",
+          "minutesWorked": 24
+        }
+      ]
+    },
+    {
+      "id": "ep-011",
+      "orderId": "ord-002",
+      "episodeNumber": 5,
+      "title": "City Lights - Episodio 5",
+      "duration": 22,
+      "status": "en_produccion",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        }
+      ]
+    },
+    {
+      "id": "ep-012",
+      "orderId": "ord-002",
+      "episodeNumber": 6,
+      "title": "City Lights - Episodio 6",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-013",
+      "orderId": "ord-002",
+      "episodeNumber": 7,
+      "title": "City Lights - Episodio 7",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-014",
+      "orderId": "ord-002",
+      "episodeNumber": 8,
+      "title": "City Lights - Episodio 8",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-015",
+      "orderId": "ord-002",
+      "episodeNumber": 9,
+      "title": "City Lights - Episodio 9",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-016",
+      "orderId": "ord-002",
+      "episodeNumber": 10,
+      "title": "City Lights - Episodio 10",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-017",
+      "orderId": "ord-002",
+      "episodeNumber": 11,
+      "title": "City Lights - Episodio 11",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-018",
+      "orderId": "ord-002",
+      "episodeNumber": 12,
+      "title": "City Lights - Episodio 12",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-019",
+      "orderId": "ord-003",
+      "episodeNumber": 1,
+      "title": "The Last Journey",
+      "duration": 120,
+      "status": "pendiente",
+      "showId": "show-003",
+      "showName": "The Last Journey",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-020",
+      "orderId": "ord-004",
+      "episodeNumber": 1,
+      "title": "Wild Nature - Episodio 1",
+      "duration": 50,
+      "status": "en_produccion",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-001",
+          "vendorName": "Estudio Alpha",
+          "phase": "preflight",
+          "minutesWorked": 50
+        }
+      ]
+    },
+    {
+      "id": "ep-021",
+      "orderId": "ord-004",
+      "episodeNumber": 2,
+      "title": "Wild Nature - Episodio 2",
+      "duration": 52,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-022",
+      "orderId": "ord-004",
+      "episodeNumber": 3,
+      "title": "Wild Nature - Episodio 3",
+      "duration": 48,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-023",
+      "orderId": "ord-004",
+      "episodeNumber": 4,
+      "title": "Wild Nature - Episodio 4",
+      "duration": 51,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-024",
+      "orderId": "ord-004",
+      "episodeNumber": 5,
+      "title": "Wild Nature - Episodio 5",
+      "duration": 49,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-025",
+      "orderId": "ord-004",
+      "episodeNumber": 6,
+      "title": "Wild Nature - Episodio 6",
+      "duration": 50,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-026",
+      "orderId": "ord-004",
+      "episodeNumber": 7,
+      "title": "Wild Nature - Episodio 7",
+      "duration": 53,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-027",
+      "orderId": "ord-004",
+      "episodeNumber": 8,
+      "title": "Wild Nature - Episodio 8",
+      "duration": 47,
+      "status": "pendiente",
+      "showId": "show-004",
+      "showName": "Wild Nature",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-028",
+      "orderId": "ord-005",
+      "episodeNumber": 1,
+      "title": "City Lights - Temporada 2 - Episodio 1",
+      "duration": 22,
+      "status": "en_produccion",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-003",
+          "vendorName": "Sound Masters",
+          "phase": "preflight",
+          "minutesWorked": 22
+        }
+      ]
+    },
+    {
+      "id": "ep-029",
+      "orderId": "ord-005",
+      "episodeNumber": 2,
+      "title": "City Lights - Temporada 2 - Episodio 2",
+      "duration": 22,
+      "status": "pendiente",
+      "showId": "show-002",
+      "showName": "City Lights",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-030",
+      "orderId": "ord-006",
+      "episodeNumber": 1,
+      "title": "Midnight Stories - Episodio 1",
+      "duration": 30,
+      "status": "cancelado",
+      "showId": "show-005",
+      "showName": "Midnight Stories",
+      "assignedVendors": []
+    },
+    {
+      "id": "ep-031",
+      "orderId": "ord-008",
+      "episodeNumber": 1,
+      "title": "Desert Dreams",
+      "duration": 95,
+      "status": "en_produccion",
+      "showId": "show-007",
+      "showName": "Desert Dreams",
+      "assignedVendors": [
+        {
+          "vendorId": "ven-001",
+          "vendorName": "Estudio Alpha",
+          "phase": "preflight",
+          "minutesWorked": 95
+        },
+        {
+          "vendorId": "ven-002",
+          "vendorName": "Voice Studio Beta",
+          "phase": "adaptación",
+          "minutesWorked": 90
+        },
+        {
+          "vendorId": "ven-005",
+          "vendorName": "Voice Experts",
+          "phase": "voice recording",
+          "minutesWorked": 100
+        }
+      ]
+    }
+  ],
+  "shows": [
+    {
+      "id": "show-001",
+      "name": "Dark Secrets",
+      "description": "Thriller psicológico sobre secretos familiares"
+    },
+    {
+      "id": "show-002",
+      "name": "City Lights",
+      "description": "Drama urbano sobre la vida en la gran ciudad"
+    },
+    {
+      "id": "show-003",
+      "name": "The Last Journey",
+      "description": "Película de aventura y drama"
+    },
+    {
+      "id": "show-004",
+      "name": "Wild Nature",
+      "description": "Documental sobre la vida salvaje"
+    },
+    {
+      "id": "show-005",
+      "name": "Midnight Stories",
+      "description": "Miniserie de suspenso"
+    },
+    {
+      "id": "show-006",
+      "name": "Ocean Depths",
+      "description": "Serie documental sobre el océano"
+    },
+    {
+      "id": "show-007",
+      "name": "Desert Dreams",
+      "description": "Película dramática ambientada en el desierto"
+    }
+  ]
+}
+
